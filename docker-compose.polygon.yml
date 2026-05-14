@@ -1,0 +1,75 @@
+version: "3.8"
+services:
+  node1:
+    image: 0xpolygon/polygon-edge:1.3.1
+    user: root
+    command:
+      - server
+      - --data-dir=/data
+      - --chain=/genesis.json
+      - --jsonrpc=0.0.0.0:8545
+      - --libp2p=0.0.0.0:1478
+      - --seal
+    container_name: node1
+    volumes:
+      - ./node-1:/data
+      - ./genesis.json:/genesis.json:ro
+    ports:
+      - "8545:8545"
+    networks:
+      - edge-network
+
+  node2:
+    image: 0xpolygon/polygon-edge:1.3.1
+    user: root
+    command:
+      - server
+      - --data-dir=/data
+      - --chain=/genesis.json
+      - --libp2p=0.0.0.0:1478
+      - --jsonrpc=127.0.0.1:8545
+      - --seal
+    container_name: node2
+    volumes:
+      - ./node-2:/data
+      - ./genesis.json:/genesis.json:ro
+    networks:
+      - edge-network
+
+  node3:
+    image: 0xpolygon/polygon-edge:1.3.1
+    user: root
+    command:
+      - server
+      - --data-dir=/data
+      - --chain=/genesis.json
+      - --libp2p=0.0.0.0:1478
+      - --jsonrpc=127.0.0.1:8545
+      - --seal
+    container_name: node3
+    volumes:
+      - ./node-3:/data
+      - ./genesis.json:/genesis.json:ro
+    networks:
+      - edge-network
+
+  node4:
+    image: 0xpolygon/polygon-edge:1.3.1
+    user: root
+    command:
+      - server
+      - --data-dir=/data
+      - --chain=/genesis.json
+      - --libp2p=0.0.0.0:1478
+      - --jsonrpc=127.0.0.1:8545
+      - --seal
+    container_name: node4
+    volumes:
+      - ./node-4:/data
+      - ./genesis.json:/genesis.json:ro
+    networks:
+      - edge-network
+
+networks:
+  edge-network:
+    driver: bridge
